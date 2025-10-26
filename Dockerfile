@@ -2,8 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# evitar cache de dependências inválidas com requirements separado
-COPY requirements.txt .
+
+COPY src/requirements.txt .
 
 RUN apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && \
     pip install --no-cache-dir -r requirements.txt && \
