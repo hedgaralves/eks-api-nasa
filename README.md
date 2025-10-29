@@ -71,9 +71,22 @@ A pipeline GitHub Actions está configurada para:
 
 ## 🔑 Configuração
 
+### 1. Permissões IAM Mínimas
+Anexe a policy `iam-policy-minimal.json` ao usuário IAM:
+```bash
+aws iam put-user-policy --user-name nasa --policy-name EKSMinimalAccess --policy-document file://iam-policy-minimal.json
+```
+
+### 2. Configuração da Aplicação
 1. **NASA API Key**: Configure a variável `NASA_API_KEY` no cluster
 2. **AWS Credentials**: Configure via `aws configure`
 3. **Cluster EKS**: Use o nome `eks-nasa-fargate`
+
+### 3. Secrets do GitHub
+Configure no repositório:
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `NASA_API_KEY`
 
 ## 💡 Dicas de Economia
 
