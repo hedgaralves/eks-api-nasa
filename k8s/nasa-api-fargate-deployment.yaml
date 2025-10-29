@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nasa-api
-        image: <ECR_REPO_URI>/nasa-api:latest
+        image: <IMAGE_URI>
         ports:
         - containerPort: 5000
           name: http
