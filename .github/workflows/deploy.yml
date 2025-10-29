@@ -26,6 +26,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ env.ASSUME_ROLE_ARN }}
           role-session-name: gha-eks-deploy
+    role-skip-session-tagging: true
 
       - name: Login to Amazon ECR
         id: login-ecr
