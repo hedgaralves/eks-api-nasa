@@ -46,8 +46,13 @@ jobs:
           eksctl create cluster \
             --name ${{ env.CLUSTER_NAME }} \
             --region ${{ env.AWS_REGION }} \
-            --fargate \
-            --wait
+            --fargate
+
+      - name: Wait for cluster to be ready
+        run: |
+          echo "Aguardando cluster ficar pronto..."
+          aws eks wait cluster-active --name ${{ env.CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+          echo "Cluster está pronto!"
 
       - name: Update K8s manifests and deploy
         run: |
