@@ -1,0 +1,82 @@
+# Arquivos do sistema
+.vscode/
+.aws/
+.cache/
+.m2/
+.gradle/
+.kube/
+.minikube/
+.nuget/
+.ssh/
+.vagrant.d/
+.vs-kubernetes/
+AppData/
+Application Data/
+Cisco Packet Tracer 8.2.1/
+Contacts/
+Downloads/
+Favorites/
+IdeaProjects/
+Links/
+Microsoft/
+Music/
+NTUSER.DAT*
+Saved Games/
+Searches/
+Videos/
+VirtualBox VMs/
+bin/
+jcef_*.log
+ntuser.dat*
+ntuser.ini
+py
+
+# Arquivos de desenvolvimento
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Arquivos de IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Arquivos temporários
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Arquivos de build
+build/
+dist/
+*.egg-info/
+
+# Arquivos de configuração local
+.env
+.env.local
+.env.*.local
+
+# Arquivos de backup
+*.bak
+*.backup

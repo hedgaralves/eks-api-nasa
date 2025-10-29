@@ -7,7 +7,7 @@ on:
 env:
   AWS_REGION: us-east-1
   ECR_REPO: nasa-api
-  CLUSTER_NAME: eks-nasa-observability
+  CLUSTER_NAME: eks-nasa-fargate
 
 jobs:
   build-deploy:
@@ -36,5 +36,9 @@ jobs:
 
       - name: Update K8s manifests and deploy
         run: |
-          aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }}
-          kubectl apply -f k8s/
+          aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+          # Usar deployment otimizado para Fargate
+          IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO }}:latest
+          sed "s|<ECR_REPO_URI>|$IMAGE_URI|g" k8s/nasa-api-fargate-deployment.yaml > k8s/nasa-api-deployment-updated.yaml
+          kubectl apply -f k8s/nasa-api-deployment-updated.yaml
+          kubectl rollout status deployment/nasa-api

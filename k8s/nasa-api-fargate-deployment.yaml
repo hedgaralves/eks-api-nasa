@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nasa-api
+  labels:
+    app: nasa-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nasa-api
+  template:
+    metadata:
+      labels:
+        app: nasa-api
+    spec:
+      containers:
+      - name: nasa-api
+        image: <ECR_REPO_URI>/nasa-api:latest
+        ports:
+        - containerPort: 5000
+          name: http
+        env:
+        - name: NASA_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nasa-secret
+              key: api-key
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: "0.25"  # Fargate mínimo
+            memory: "0.5Gi"  # Fargate mínimo
+          limits:
+            cpu: "0.5"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nasa-api
+  labels:
+    app: nasa-api
+spec:
+  selector:
+    app: nasa-api
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 5000
