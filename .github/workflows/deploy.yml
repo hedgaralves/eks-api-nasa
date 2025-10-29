@@ -8,7 +8,6 @@ env:
   AWS_REGION: us-east-1
   ECR_REPO: nasa-api
   CLUSTER_NAME: eks-nasa-fargate
-  ASSUME_ROLE_ARN: arn:aws:iam::712216923434:role/eksctl-eks-nasa-fargate-cluster-ServiceRole-M5J8p51U4hsq
 
 jobs:
   build-deploy:
@@ -18,15 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials (assume role)
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: ${{ env.ASSUME_ROLE_ARN }}
-          role-session-name: gha-eks-deploy
-          role-skip-session-tagging: true
+          mask-aws-account-id: true
 
       - name: Login to Amazon ECR
         id: login-ecr
