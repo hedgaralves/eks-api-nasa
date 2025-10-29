@@ -4,6 +4,13 @@
     {
       "Effect": "Allow",
       "Action": [
+        "sts:AssumeRole"
+      ],
+      "Resource": "arn:aws:iam::712216923434:role/eksctl-eks-nasa-fargate-cluster-ServiceRole-M5J8p51U4hsq"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
         "eks:DescribeCluster",
         "eks:ListClusters"
       ],
